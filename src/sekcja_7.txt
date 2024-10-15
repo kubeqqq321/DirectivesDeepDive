@@ -1,0 +1,9 @@
+Directives -> Dyrektywy
+
+dyrektywy -> to rozszerzenie dla elementów używanych w szablonach niezależnie od tego czy są to
+             elementy wbudowane w HTML czy też komponenty Angulara. Oba te typy można ulepszyć za pomocą
+              dyrektyw. Oznacza to że do tych elementów można dodać nowe zachowania lub ustawienia.
+
+W przeciwieństwie do komponentów dyrektywy nie posiadają szablonów. Poza tym są one takie same.
+
+Można powiedzieć że komponenty są dyrektywami z szablonem.
