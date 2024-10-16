@@ -1,4 +1,4 @@
-Directives -> Dyrektywy
+Directives -> Dyrektywy 16.10.2024
 
 dyrektywy -> to rozszerzenie dla elementów używanych w szablonach niezależnie od tego czy są to
              elementy wbudowane w HTML czy też komponenty Angulara. Oba te typy można ulepszyć za pomocą
@@ -7,3 +7,129 @@ dyrektywy -> to rozszerzenie dla elementów używanych w szablonach niezależnie
 W przeciwieństwie do komponentów dyrektywy nie posiadają szablonów. Poza tym są one takie same.
 
 Można powiedzieć że komponenty są dyrektywami z szablonem.
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+[(ngModel)] -> jest dyrektywą oferowana przez Angular, która ulepsza elementy wejściowe. Umozliwa wykonywanie wiązań
+               dwukierunkowych lub zarządzanie klasami CSS
+
+[(ngModel)] -> jest skrótem dla [ngModel] i (ngModelChange) w jednym. Oznacza to że za pomocą tej dyrektywy można
+
+auth.component.html
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+dyrektywy strukturalne -> są to dyrektywy które zmieniają strukturę DOM. Są to dyrektywy które dodają lub usuwają
+                          elementy z drzewa DOM.
+Aby utworzyć dyrektywę strukturalną należy użyć znaku gwiazdki (*) przed nazwą dyrektywy.
+np. *ngIf, *ngFor, *ngSwitch
+
+app.component.html
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Klasa staje sie dyrektywą w świecie Angulara gdy jest oznaczona dekoratorem @Directive. Dekorator ten przyjmuje
+obiekt konfiguracyjny, który definiuje właściwości dyrektywy.
+
+safe-link.directive.ts
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Selektor atrybutu -> jest to selektor który wybiera elementy na podstawie ich atrybutów. Aby utworzyć selektor
+                     atrybutu należy użyć nawiasów kwadratowych [].
+ selector: 'a[appSafeLink]',
+ safe-link.directive.ts
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+type costing -> dodajemy w niej słowo kluczowe 'as' po wartości którą chcemy zmienić. Następnie podajemy typ na jaki
+                 chcemy zmienić wartość.
+const address = (event.target as HTMLAnchorElement).href;
+
+safe-link.directive.ts
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Niestandardowa dyrektywa strukturalna -> jest to dyrektywa strukturalna która przyjmuje argumenty. Aby to zrobić
+                                        należy utworzyć pole w klasie dyrektywy i oznaczyć je dekoratorem
+                                        @Input().
+auth.directive.ts
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+<ng-template> -> jest specjalnym elementem dostarczonym przez Angular, a jego zadaniem jest użycie go w jednym z szablonów
+                 komponentów do zawijania niektórych treści.
+Cokolwiek zostanie umieszczone wewnątrz tego elementu nie zostanie wyrenderowane w drzewie DOM.
+Idea ng-template polega na tym żeby nie renderować treści w momencie kiedy nie są potrzebne.
+Pozwala na kontrolowanie kiedy dokładnie ma zostać wyrenderowana treść.
+
+  <ng-template appAuth userType="admin">
+    <p>Admin Content</p>
+  </ng-template>
+
+ app.component.html
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+createEmbeddedView() -> metoda która określa nową zawartość w określonym miejscu w DOM
+
+this.viewContainerRef.createEmbeddedView(this.templateRef) -> ten kawałek kodu nakazuje Angularowi aby pobrał treść
+                                                                znajdującą się wewnątrz ng-template i umieścił ją w miejscu,
+                                                                w którym znajduje się dyrektywa strukturalna.
+this.viewContainerRef.clear() -> powoduje usunięcie wszytskich osadzonych widoków, kóre zostały wyrenderowane przez
+                                  dyrektywę strukturalną.
+auth.directive.ts
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+Zamiast uzywać <ng-template> można dodać dyrektywe autoryzacji bezpośrednio do elementu <p> poprzedzona *
+Jest to specjalny wzorzec nazewnicstwa, który Angular rozumie tak żeby utworzyć ng-template pod spodem.
+
+Ważne jest to że gwiazdka (*) nie tylko spowoduje dodanie szaablonu ale tez automatycznie skonfiguruje wiązanie właściwości
+czyli. tak jakby byłu użyte []
+
+ <p *appAuth="'admin'">Admin Content Own Directive</p>
+
+  app.component.html
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+  hostDirectives: [] -> Pobiera tablice dyrekty, które powinny zostać dodane do hosta i wtedy bez względu na to jak często
+                        zostanie użyta dyrektywa tego komponentu w dowolnym miejscu w aplikacji, zawsze będzie miała
+                        dodaną tą dyrektywe
+
+    hostDirectives: [LogDirective] -> dodaje dyrektywe LogDirective do hosta komponentu
+ app.component.ts
+------------------------------------------------------------------------------------------------------------------------
